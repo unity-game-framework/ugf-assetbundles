@@ -1,0 +1,18 @@
+{
+    "name": "UGF.AssetBundles.Runtime.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9b24bb9684a1ac744ba842cf8de9fc0f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
