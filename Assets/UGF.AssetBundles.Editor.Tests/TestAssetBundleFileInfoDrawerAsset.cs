@@ -16,7 +16,30 @@ namespace UGF.AssetBundles.Editor.Tests
 
         private void OnEnable()
         {
-            m_info = new AssetBundleFileInfo("Test", 15, true);
+            m_drawer.Enable();
+
+            var assets = new[]
+            {
+                new AssetBundleFileInfo.AssetInfo("Asset 0", typeof(Object), "Address"),
+                new AssetBundleFileInfo.AssetInfo("Asset 1", typeof(Object), "Address"),
+                new AssetBundleFileInfo.AssetInfo("Asset 2", typeof(Object), "Address")
+            };
+
+            string[] dependencies = new[]
+            {
+                "Test 0",
+                "Test 1",
+                "Test 2",
+                "Test 3",
+                "Test 4"
+            };
+
+            m_info = new AssetBundleFileInfo("Test", 15, assets, dependencies, true);
+        }
+
+        private void OnDisable()
+        {
+            m_drawer.Disable();
         }
 
         public override void OnInspectorGUI()
