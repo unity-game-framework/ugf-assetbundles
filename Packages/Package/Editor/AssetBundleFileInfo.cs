@@ -27,7 +27,11 @@ namespace UGF.AssetBundles.Editor
             }
         }
 
-        public AssetBundleFileInfo(string name, uint crc, IReadOnlyList<AssetInfo> assets, IReadOnlyList<string> dependencies, bool isStreamedSceneAssetBundle, long size)
+        public AssetBundleFileInfo(string name, uint crc, bool isStreamedSceneAssetBundle) : this(name, crc, Array.Empty<AssetInfo>(), Array.Empty<string>(), isStreamedSceneAssetBundle)
+        {
+        }
+
+        public AssetBundleFileInfo(string name, uint crc, IReadOnlyList<AssetInfo> assets, IReadOnlyList<string> dependencies, bool isStreamedSceneAssetBundle)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentException("Value cannot be null or empty.", nameof(name));
 

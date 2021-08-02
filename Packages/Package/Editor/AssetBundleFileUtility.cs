@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Profiling;
 using Object = UnityEngine.Object;
 
 namespace UGF.AssetBundles.Editor
@@ -21,7 +20,6 @@ namespace UGF.AssetBundles.Editor
                 var assets = new List<AssetBundleFileInfo.AssetInfo>();
                 var dependencies = new List<string>();
                 bool isStreamedSceneAssetBundle = assetBundle.isStreamedSceneAssetBundle;
-                long size = Profiler.GetRuntimeMemorySizeLong(assetBundle);
 
                 var serializedObject = new SerializedObject(assetBundle);
                 SerializedProperty propertyPreloadTable = serializedObject.FindProperty("m_PreloadTable");
@@ -72,7 +70,7 @@ namespace UGF.AssetBundles.Editor
 
                 BuildPipeline.GetCRCForAssetBundle(path, out uint crc);
 
-                return new AssetBundleFileInfo(name, crc, assets, dependencies, isStreamedSceneAssetBundle, size);
+                return new AssetBundleFileInfo(name, crc, assets, dependencies, isStreamedSceneAssetBundle);
             }
             finally
             {
