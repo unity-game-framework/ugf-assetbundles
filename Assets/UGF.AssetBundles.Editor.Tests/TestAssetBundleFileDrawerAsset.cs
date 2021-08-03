@@ -33,7 +33,12 @@ namespace UGF.AssetBundles.Editor.Tests
         {
             base.OnInspectorGUI();
 
-            m_drawer.DisplayDebug = EditorGUILayout.Toggle("Debug Display", m_drawer.DisplayDebug);
+            m_drawer.DisplayDebug = EditorGUILayout.Toggle("DisplayDebug", m_drawer.DisplayDebug);
+            m_drawer.DisplayTitlebar = EditorGUILayout.Toggle("DisplayTitlebar", m_drawer.DisplayTitlebar);
+            m_drawer.DisplayMenu = EditorGUILayout.Toggle("DisplayMenu", m_drawer.DisplayMenu);
+            m_drawer.DisplayMenuRefresh = EditorGUILayout.Toggle("DisplayMenuRefresh", m_drawer.DisplayMenuRefresh);
+            m_drawer.DisplayMenuClear = EditorGUILayout.Toggle("DisplayMenuClear", m_drawer.DisplayMenuClear);
+            m_drawer.DisplayMenuDebug = EditorGUILayout.Toggle("DisplayMenuDebug", m_drawer.DisplayMenuDebug);
 
             using (new EditorGUILayout.HorizontalScope())
             {

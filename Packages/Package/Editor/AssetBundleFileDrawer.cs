@@ -26,6 +26,10 @@ namespace UGF.AssetBundles.Editor
         }
 
         public bool DisplayTitlebar { get; set; } = true;
+        public bool DisplayMenu { get; set; } = true;
+        public bool DisplayMenuRefresh { get; set; } = true;
+        public bool DisplayMenuClear { get; set; } = true;
+        public bool DisplayMenuDebug { get; set; } = true;
         public bool HasData { get { return m_drawerNormal.HasData || m_drawerDebug.HasData; } }
 
         private readonly AssetBundleFileInfoDrawer m_drawerNormal = new AssetBundleFileInfoDrawer();
@@ -104,9 +108,12 @@ namespace UGF.AssetBundles.Editor
 
                     GUILayout.FlexibleSpace();
 
-                    if (DropdownEditorGUIUtility.DropdownButton(GUIContent.none, m_styles.ContentMenu, out Rect dropdownPosition, FocusType.Keyboard, m_styles.StyleButton, GUILayout.Width(EditorGUIUtility.singleLineHeight)))
+                    if (DisplayMenu && (DisplayMenuRefresh || DisplayMenuClear || DisplayMenuDebug))
                     {
-                        OnMenuOpen(dropdownPosition);
+                        if (DropdownEditorGUIUtility.DropdownButton(GUIContent.none, m_styles.ContentMenu, out Rect dropdownPosition, FocusType.Keyboard, m_styles.StyleButton, GUILayout.Width(EditorGUIUtility.singleLineHeight)))
+                        {
+                            OnMenuOpen(dropdownPosition);
+                        }
                     }
                 }
             }
@@ -159,10 +166,25 @@ namespace UGF.AssetBundles.Editor
         {
             var menu = new GenericMenu();
 
-            menu.AddItem(m_styles.ContentMenuRefresh, false, OnMenuRefresh);
-            menu.AddItem(m_styles.ContentMenuClear, false, OnMenuClear);
-            menu.AddSeparator(string.Empty);
-            menu.AddItem(m_styles.ContentMenuDebug, DisplayDebug, OnMenuDebug);
+            if (DisplayMenuRefresh)
+            {
+                menu.AddItem(m_styles.ContentMenuRefresh, false, OnMenuRefresh);
+            }
+
+            if (DisplayMenuClear)
+            {
+                menu.AddItem(m_styles.ContentMenuClear, false, OnMenuClear);
+            }
+
+            if (DisplayMenuDebug)
+            {
+                if (DisplayMenuRefresh || DisplayMenuClear)
+                {
+                    menu.AddSeparator(string.Empty);
+                }
+
+                menu.AddItem(m_styles.ContentMenuDebug, DisplayDebug, OnMenuDebug);
+            }
 
             menu.DropDown(position);
         }
