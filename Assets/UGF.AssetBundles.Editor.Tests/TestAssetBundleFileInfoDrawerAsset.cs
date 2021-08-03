@@ -35,6 +35,7 @@ namespace UGF.AssetBundles.Editor.Tests
             };
 
             m_info = new AssetBundleFileInfo("Test", 15, assets, dependencies, true);
+            m_drawer.Set(m_info);
         }
 
         private void OnDisable()
@@ -46,7 +47,7 @@ namespace UGF.AssetBundles.Editor.Tests
         {
             base.OnInspectorGUI();
 
-            m_drawer.DrawGUILayout(m_info);
+            m_drawer.DrawGUILayout();
         }
     }
 }
