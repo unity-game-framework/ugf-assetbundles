@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using UGF.EditorTools.Editor.IMGUI;
+using UGF.EditorTools.Editor.IMGUI.Dropdown;
 using UnityEditor;
 using UnityEngine;
 
@@ -39,6 +40,7 @@ namespace UGF.AssetBundles.Editor
             public GUIContent ContentTitlebarDebug { get; } = new GUIContent("AssetBundle Information (Debug)");
             public GUIContent ContentMenu { get; } = new GUIContent(EditorGUIUtility.FindTexture("_Menu"));
             public GUIContent ContentMenuRefresh { get; } = new GUIContent("Refresh");
+            public GUIContent ContentMenuClear { get; } = new GUIContent("Clear");
             public GUIContent ContentMenuDebug { get; } = new GUIContent("Debug");
             public GUIStyle StyleButton { get; } = new GUIStyle("IconButton");
         }
@@ -102,9 +104,9 @@ namespace UGF.AssetBundles.Editor
 
                     GUILayout.FlexibleSpace();
 
-                    if (GUILayout.Button(m_styles.ContentMenu, m_styles.StyleButton))
+                    if (DropdownEditorGUIUtility.DropdownButton(GUIContent.none, m_styles.ContentMenu, out Rect dropdownPosition, FocusType.Keyboard, m_styles.StyleButton, GUILayout.Width(EditorGUIUtility.singleLineHeight)))
                     {
-                        OnMenuOpen();
+                        OnMenuOpen(dropdownPosition);
                     }
                 }
             }
@@ -153,19 +155,26 @@ namespace UGF.AssetBundles.Editor
             Clear();
         }
 
-        private void OnMenuOpen()
+        private void OnMenuOpen(Rect position)
         {
             var menu = new GenericMenu();
 
             menu.AddItem(m_styles.ContentMenuRefresh, false, OnMenuRefresh);
+            menu.AddItem(m_styles.ContentMenuClear, false, OnMenuClear);
+            menu.AddSeparator(string.Empty);
             menu.AddItem(m_styles.ContentMenuDebug, DisplayDebug, OnMenuDebug);
 
-            menu.ShowAsContext();
+            menu.DropDown(position);
         }
 
         private void OnMenuRefresh()
         {
             Refresh();
+        }
+
+        private void OnMenuClear()
+        {
+            Clear();
         }
 
         private void OnMenuDebug()
