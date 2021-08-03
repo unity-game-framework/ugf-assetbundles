@@ -5,7 +5,7 @@ namespace UGF.AssetBundles.Editor
 {
     internal static class AssetBundleFileInfoContainerUtility
     {
-        public static AssetBundleFileInfoContainer CreateContainer(AssetBundleFileInfo info)
+        public static AssetBundleFileInfoContainer Create(AssetBundleFileInfo info)
         {
             if (info == null) throw new ArgumentNullException(nameof(info));
 

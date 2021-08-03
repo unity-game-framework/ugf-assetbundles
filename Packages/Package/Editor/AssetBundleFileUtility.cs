@@ -16,66 +16,75 @@ namespace UGF.AssetBundles.Editor
 
             try
             {
-                string name = assetBundle.name;
-                var assets = new List<AssetBundleFileInfo.AssetInfo>();
-                var dependencies = new List<string>();
-                bool isStreamedSceneAssetBundle = assetBundle.isStreamedSceneAssetBundle;
-
-                var serializedObject = new SerializedObject(assetBundle);
-                SerializedProperty propertyPreloadTable = serializedObject.FindProperty("m_PreloadTable");
-                SerializedProperty propertyContainer = serializedObject.FindProperty("m_Container");
-                SerializedProperty propertyDependencies = serializedObject.FindProperty("m_Dependencies");
-
-                var addresses = new Dictionary<int, string>();
-
-                for (int i = 0; i < propertyContainer.arraySize; i++)
-                {
-                    SerializedProperty propertyElement = propertyContainer.GetArrayElementAtIndex(i);
-                    SerializedProperty propertyFirst = propertyElement.FindPropertyRelative("first");
-                    SerializedProperty propertySecond = propertyElement.FindPropertyRelative("second");
-                    SerializedProperty propertyAsset = propertySecond.FindPropertyRelative("asset");
-
-                    string address = propertyFirst.stringValue;
-                    int instanceId = propertyAsset.objectReferenceInstanceIDValue;
-
-                    if (instanceId != 0)
-                    {
-                        addresses[instanceId] = address;
-                    }
-                }
-
-                for (int i = 0; i < propertyPreloadTable.arraySize; i++)
-                {
-                    SerializedProperty propertyElement = propertyPreloadTable.GetArrayElementAtIndex(i);
-                    Object asset = propertyElement.objectReferenceValue;
-                    int instanceId = propertyElement.objectReferenceInstanceIDValue;
-
-                    if (asset != null)
-                    {
-                        string assetName = asset.name;
-                        Type assetType = asset.GetType();
-                        string address = addresses.TryGetValue(instanceId, out string value) ? value : string.Empty;
-                        var assetInfo = new AssetBundleFileInfo.AssetInfo(assetName, assetType, address);
-
-                        assets.Add(assetInfo);
-                    }
-                }
-
-                for (int i = 0; i < propertyDependencies.arraySize; i++)
-                {
-                    SerializedProperty propertyElement = propertyDependencies.GetArrayElementAtIndex(i);
-
-                    dependencies.Add(propertyElement.stringValue);
-                }
-
                 BuildPipeline.GetCRCForAssetBundle(path, out uint crc);
 
-                return new AssetBundleFileInfo(name, crc, assets, dependencies, isStreamedSceneAssetBundle);
+                AssetBundleFileInfo info = Create(assetBundle, crc);
+
+                return info;
             }
             finally
             {
                 assetBundle.Unload(true);
             }
+        }
+
+        public static AssetBundleFileInfo Create(AssetBundle assetBundle, uint crc = 0)
+        {
+            if (assetBundle == null) throw new ArgumentNullException(nameof(assetBundle));
+
+            string name = assetBundle.name;
+            var assets = new List<AssetBundleFileInfo.AssetInfo>();
+            var dependencies = new List<string>();
+            bool isStreamedSceneAssetBundle = assetBundle.isStreamedSceneAssetBundle;
+
+            var serializedObject = new SerializedObject(assetBundle);
+            SerializedProperty propertyPreloadTable = serializedObject.FindProperty("m_PreloadTable");
+            SerializedProperty propertyContainer = serializedObject.FindProperty("m_Container");
+            SerializedProperty propertyDependencies = serializedObject.FindProperty("m_Dependencies");
+
+            var addresses = new Dictionary<int, string>();
+
+            for (int i = 0; i < propertyContainer.arraySize; i++)
+            {
+                SerializedProperty propertyElement = propertyContainer.GetArrayElementAtIndex(i);
+                SerializedProperty propertyFirst = propertyElement.FindPropertyRelative("first");
+                SerializedProperty propertySecond = propertyElement.FindPropertyRelative("second");
+                SerializedProperty propertyAsset = propertySecond.FindPropertyRelative("asset");
+
+                string address = propertyFirst.stringValue;
+                int instanceId = propertyAsset.objectReferenceInstanceIDValue;
+
+                if (instanceId != 0)
+                {
+                    addresses[instanceId] = address;
+                }
+            }
+
+            for (int i = 0; i < propertyPreloadTable.arraySize; i++)
+            {
+                SerializedProperty propertyElement = propertyPreloadTable.GetArrayElementAtIndex(i);
+                Object asset = propertyElement.objectReferenceValue;
+                int instanceId = propertyElement.objectReferenceInstanceIDValue;
+
+                if (asset != null)
+                {
+                    string assetName = asset.name;
+                    Type assetType = asset.GetType();
+                    string address = addresses.TryGetValue(instanceId, out string value) ? value : string.Empty;
+                    var assetInfo = new AssetBundleFileInfo.AssetInfo(assetName, assetType, address);
+
+                    assets.Add(assetInfo);
+                }
+            }
+
+            for (int i = 0; i < propertyDependencies.arraySize; i++)
+            {
+                SerializedProperty propertyElement = propertyDependencies.GetArrayElementAtIndex(i);
+
+                dependencies.Add(propertyElement.stringValue);
+            }
+
+            return new AssetBundleFileInfo(name, crc, assets, dependencies, isStreamedSceneAssetBundle);
         }
     }
 }

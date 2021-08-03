@@ -25,7 +25,7 @@ namespace UGF.AssetBundles.Editor
         {
             if (info == null) throw new ArgumentNullException(nameof(info));
 
-            AssetBundleFileInfoContainer container = AssetBundleFileInfoContainerUtility.CreateContainer(info);
+            AssetBundleFileInfoContainer container = AssetBundleFileInfoContainerUtility.Create(info);
 
             m_drawer.Set(container);
         }
