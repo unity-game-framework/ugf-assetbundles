@@ -14,9 +14,12 @@ namespace UGF.AssetBundles.Editor
             get { return m_debugDisplay; }
             set
             {
-                m_debugDisplay = value;
+                if (m_debugDisplay != value)
+                {
+                    m_debugDisplay = value;
 
-                OnDebugDisplayChanged();
+                    OnDebugDisplayOrPathChanged();
+                }
             }
         }
 
@@ -54,12 +57,7 @@ namespace UGF.AssetBundles.Editor
 
             Path = path;
 
-            Clear();
-
-            if (File.Exists(path))
-            {
-                m_drawerNormal.Set(path);
-            }
+            OnDebugDisplayOrPathChanged();
         }
 
         public void Clear()
@@ -70,36 +68,33 @@ namespace UGF.AssetBundles.Editor
 
         public void DrawGUILayout()
         {
-            using (new EditorGUI.DisabledScope(true))
+            if (DebugDisplay)
             {
-                if (DebugDisplay)
+                if (EditorApplication.isPlayingOrWillChangePlaymode)
                 {
-                    if (EditorApplication.isPlayingOrWillChangePlaymode)
-                    {
-                        EditorGUILayout.HelpBox("Previewing AssetBundle debug information unavailable in play mode.", MessageType.Info);
-                    }
-                    else
-                    {
-                        m_drawerDebug.DrawGUILayout();
-                    }
+                    EditorGUILayout.HelpBox("Previewing AssetBundle debug information unavailable in play mode.", MessageType.Info);
                 }
                 else
                 {
-                    m_drawerNormal.DrawGUILayout();
+                    m_drawerDebug.DrawGUILayout();
                 }
+            }
+            else
+            {
+                m_drawerNormal.DrawGUILayout();
+            }
 
-                if (!File.Exists(Path))
-                {
-                    EditorGUILayout.HelpBox($"No AssetBundle found at the specified path: '{Path}'.", MessageType.Warning);
-                }
+            if (!File.Exists(Path))
+            {
+                EditorGUILayout.HelpBox($"No AssetBundle found at the specified path: '{Path}'.", MessageType.Warning);
             }
         }
 
-        private void OnDebugDisplayChanged()
+        private void OnDebugDisplayOrPathChanged()
         {
             Clear();
 
-            if (!EditorApplication.isPlayingOrWillChangePlaymode)
+            if (!string.IsNullOrEmpty(Path) && !EditorApplication.isPlayingOrWillChangePlaymode)
             {
                 if (m_debugDisplay)
                 {
