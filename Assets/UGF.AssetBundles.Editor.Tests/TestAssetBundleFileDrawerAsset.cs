@@ -33,7 +33,7 @@ namespace UGF.AssetBundles.Editor.Tests
         {
             base.OnInspectorGUI();
 
-            m_drawer.DebugDisplay = EditorGUILayout.Toggle("Debug Display", m_drawer.DebugDisplay);
+            m_drawer.DisplayDebug = EditorGUILayout.Toggle("Debug Display", m_drawer.DisplayDebug);
 
             using (new EditorGUILayout.HorizontalScope())
             {
