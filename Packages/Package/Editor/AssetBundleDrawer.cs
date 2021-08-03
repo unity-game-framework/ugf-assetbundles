@@ -1,16 +1,16 @@
 ﻿using System;
 using UGF.EditorTools.Editor.IMGUI;
 using UnityEditor;
-using Object = UnityEngine.Object;
+using UnityEngine;
 
 namespace UGF.AssetBundles.Editor
 {
-    public class AssetBundleFileInfoDrawer : DrawerBase
+    public class AssetBundleDrawer : DrawerBase
     {
         public bool HasData { get { return m_drawer.HasEditor; } }
+        public bool UnloadOnClear { get; set; } = true;
 
         private readonly EditorDrawer m_drawer = new EditorDrawer();
-        private AssetBundleFileInfoContainer m_container;
 
         protected override void OnEnable()
         {
@@ -32,31 +32,32 @@ namespace UGF.AssetBundles.Editor
         {
             if (string.IsNullOrEmpty(path)) throw new ArgumentException("Value cannot be null or empty.", nameof(path));
 
-            AssetBundleFileInfo info = AssetBundleFileUtility.Load(path);
+            AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
 
-            Set(info);
+            Set(assetBundle);
         }
 
-        public void Set(AssetBundleFileInfo info)
+        public void Set(AssetBundle assetBundle)
         {
-            if (info == null) throw new ArgumentNullException(nameof(info));
+            if (assetBundle == null) throw new ArgumentNullException(nameof(assetBundle));
 
             Clear();
 
-            m_container = AssetBundleFileInfoContainerUtility.Create(info);
-
-            m_drawer.Set(m_container);
+            m_drawer.Set(assetBundle);
         }
 
         public void Clear()
         {
-            m_drawer.Clear();
-
-            if (m_container != null)
+            if (m_drawer.HasEditor)
             {
-                Object.DestroyImmediate(m_container);
+                var assetBundle = (AssetBundle)m_drawer.Editor.target;
 
-                m_container = null;
+                m_drawer.Clear();
+
+                if (UnloadOnClear)
+                {
+                    assetBundle.Unload(true);
+                }
             }
         }
 
