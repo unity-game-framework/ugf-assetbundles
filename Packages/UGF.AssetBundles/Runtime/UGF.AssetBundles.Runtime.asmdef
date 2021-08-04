@@ -1,6 +1,6 @@
 {
     "name": "UGF.AssetBundles.Runtime",
-    "rootNamespace": "",
+    "rootNamespace": "UGF.AssetBundles.Runtime",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
