@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using UGF.RuntimeTools.Runtime.Tasks;
 using UnityEngine;
 
 namespace UGF.AssetBundles.Runtime
@@ -35,10 +36,7 @@ namespace UGF.AssetBundles.Runtime
 
             AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(Path);
 
-            while (!request.isDone)
-            {
-                await Task.Yield();
-            }
+            await request.WaitAsync();
 
             m_assetBundle = request.assetBundle;
         }
@@ -52,12 +50,7 @@ namespace UGF.AssetBundles.Runtime
 
         public async Task UnloadAsync(bool unloadAllLoadedObjects = true)
         {
-            AsyncOperation operation = AssetBundle.UnloadAsync(unloadAllLoadedObjects);
-
-            while (!operation.isDone)
-            {
-                await Task.Yield();
-            }
+            await AssetBundle.UnloadAsync(unloadAllLoadedObjects).WaitAsync();
 
             m_assetBundle = null;
         }
