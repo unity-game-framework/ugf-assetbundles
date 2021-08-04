@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.ugf.assetbundles": {
-      "version": "file:Package",
+      "version": "file:UGF.AssetBundles",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
