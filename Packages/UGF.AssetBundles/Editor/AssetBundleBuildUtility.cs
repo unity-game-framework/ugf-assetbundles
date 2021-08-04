@@ -39,8 +39,11 @@ namespace UGF.AssetBundles.Editor
 
                 foreach (KeyValuePair<string, string> pair in info)
                 {
-                    build.addressableNames[index] = pair.Key;
-                    build.assetNames[index] = pair.Value;
+                    string address = pair.Key.Replace('\\', '/');
+                    string path = pair.Value.Replace('\\', '/');
+
+                    build.addressableNames[index] = address;
+                    build.assetNames[index] = path;
 
                     index++;
                 }
