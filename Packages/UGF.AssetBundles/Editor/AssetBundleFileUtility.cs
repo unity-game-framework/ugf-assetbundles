@@ -16,6 +16,11 @@ namespace UGF.AssetBundles.Editor
 
             try
             {
+                foreach (string assetName in assetBundle.GetAllAssetNames())
+                {
+                    assetBundle.LoadAsset(assetName);
+                }
+
                 BuildPipeline.GetCRCForAssetBundle(path, out uint crc);
 
                 AssetBundleFileInfo info = Create(assetBundle, crc);
