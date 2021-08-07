@@ -43,6 +43,11 @@ namespace UGF.AssetBundles.Editor
 
             Clear();
 
+            foreach (string assetName in assetBundle.GetAllAssetNames())
+            {
+                assetBundle.LoadAsset(assetName);
+            }
+
             m_drawer.Set(assetBundle);
         }
 
