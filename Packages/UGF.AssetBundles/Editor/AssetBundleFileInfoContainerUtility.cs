@@ -14,6 +14,7 @@ namespace UGF.AssetBundles.Editor
             container.Name = info.Name;
             container.Crc = info.Crc;
             container.IsStreamedSceneAssetBundle = info.IsStreamedSceneAssetBundle;
+            container.AssetNames.AddRange(info.AssetNames);
             container.Dependencies.AddRange(info.Dependencies);
 
             for (int i = 0; i < info.Assets.Count; i++)
