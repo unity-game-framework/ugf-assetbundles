@@ -10,6 +10,7 @@ namespace UGF.AssetBundles.Editor
         [SerializeField] private uint m_crc;
         [SerializeField] private bool m_isStreamedSceneAssetBundle;
         [SerializeField] private List<string> m_assetNames = new List<string>();
+        [SerializeField] private List<string> m_scenePaths = new List<string>();
         [SerializeField] private List<AssetInfo> m_assets = new List<AssetInfo>();
         [SerializeField] private List<string> m_dependencies = new List<string>();
 
@@ -17,6 +18,7 @@ namespace UGF.AssetBundles.Editor
         public uint Crc { get { return m_crc; } set { m_crc = value; } }
         public bool IsStreamedSceneAssetBundle { get { return m_isStreamedSceneAssetBundle; } set { m_isStreamedSceneAssetBundle = value; } }
         public List<string> AssetNames { get { return m_assetNames; } }
+        public List<string> ScenePaths { get { return m_scenePaths; } }
         public List<AssetInfo> Assets { get { return m_assets; } }
         public List<string> Dependencies { get { return m_dependencies; } }
 

@@ -8,6 +8,7 @@ namespace UGF.AssetBundles.Editor
         public string Name { get; }
         public uint Crc { get; }
         public IReadOnlyList<string> AssetNames { get; }
+        public IReadOnlyList<string> ScenePaths { get; }
         public IReadOnlyList<AssetInfo> Assets { get; }
         public IReadOnlyList<string> Dependencies { get; }
         public bool IsStreamedSceneAssetBundle { get; }
@@ -28,17 +29,18 @@ namespace UGF.AssetBundles.Editor
             }
         }
 
-        public AssetBundleFileInfo(string name, uint crc, bool isStreamedSceneAssetBundle) : this(name, crc, Array.Empty<string>(), Array.Empty<AssetInfo>(), Array.Empty<string>(), isStreamedSceneAssetBundle)
+        public AssetBundleFileInfo(string name, uint crc, bool isStreamedSceneAssetBundle) : this(name, crc, Array.Empty<string>(), Array.Empty<string>(), Array.Empty<AssetInfo>(), Array.Empty<string>(), isStreamedSceneAssetBundle)
         {
         }
 
-        public AssetBundleFileInfo(string name, uint crc, IReadOnlyList<string> assetNames, IReadOnlyList<AssetInfo> assets, IReadOnlyList<string> dependencies, bool isStreamedSceneAssetBundle)
+        public AssetBundleFileInfo(string name, uint crc, IReadOnlyList<string> assetNames, IReadOnlyList<string> scenePaths, IReadOnlyList<AssetInfo> assets, IReadOnlyList<string> dependencies, bool isStreamedSceneAssetBundle)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentException("Value cannot be null or empty.", nameof(name));
 
             Name = name;
             Crc = crc;
             AssetNames = assetNames ?? throw new ArgumentNullException(nameof(assetNames));
+            ScenePaths = scenePaths ?? throw new ArgumentNullException(nameof(scenePaths));
             Assets = assets ?? throw new ArgumentNullException(nameof(assets));
             Dependencies = dependencies ?? throw new ArgumentNullException(nameof(dependencies));
             IsStreamedSceneAssetBundle = isStreamedSceneAssetBundle;

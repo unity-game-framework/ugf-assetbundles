@@ -10,6 +10,7 @@ namespace UGF.AssetBundles.Editor
         private SerializedProperty m_propertyCrc;
         private SerializedProperty m_propertyIsStreamedSceneAssetBundle;
         private PagesCollectionDrawer m_listAssetNames;
+        private PagesCollectionDrawer m_listScenePaths;
         private PagesCollectionDrawer m_listAssets;
         private PagesCollectionDrawer m_listDependencies;
 
@@ -19,10 +20,12 @@ namespace UGF.AssetBundles.Editor
             m_propertyCrc = serializedObject.FindProperty("m_crc");
             m_propertyIsStreamedSceneAssetBundle = serializedObject.FindProperty("m_isStreamedSceneAssetBundle");
             m_listAssetNames = new PagesCollectionDrawer(serializedObject.FindProperty("m_assetNames"));
+            m_listScenePaths = new PagesCollectionDrawer(serializedObject.FindProperty("m_scenePaths"));
             m_listAssets = new PagesCollectionDrawer(serializedObject.FindProperty("m_assets"));
             m_listDependencies = new PagesCollectionDrawer(serializedObject.FindProperty("m_dependencies"));
 
             m_listAssetNames.Enable();
+            m_listScenePaths.Enable();
             m_listAssets.Enable();
             m_listDependencies.Enable();
         }
@@ -30,6 +33,7 @@ namespace UGF.AssetBundles.Editor
         private void OnDisable()
         {
             m_listAssetNames.Disable();
+            m_listScenePaths.Disable();
             m_listAssets.Disable();
             m_listDependencies.Disable();
         }
@@ -43,6 +47,7 @@ namespace UGF.AssetBundles.Editor
             EditorGUILayout.PropertyField(m_propertyIsStreamedSceneAssetBundle);
 
             m_listAssetNames.DrawGUILayout();
+            m_listScenePaths.DrawGUILayout();
             m_listAssets.DrawGUILayout();
             m_listDependencies.DrawGUILayout();
         }
