@@ -38,9 +38,14 @@ namespace UGF.AssetBundles.Editor
             if (assetBundle == null) throw new ArgumentNullException(nameof(assetBundle));
 
             string name = assetBundle.name;
+            var assetNames = new List<string>();
+            var scenePaths = new List<string>();
             var assets = new List<AssetBundleFileInfo.AssetInfo>();
             var dependencies = new List<string>();
             bool isStreamedSceneAssetBundle = assetBundle.isStreamedSceneAssetBundle;
+
+            assetNames.AddRange(assetBundle.GetAllAssetNames());
+            scenePaths.AddRange(assetBundle.GetAllScenePaths());
 
             var serializedObject = new SerializedObject(assetBundle);
             SerializedProperty propertyPreloadTable = serializedObject.FindProperty("m_PreloadTable");
@@ -89,7 +94,7 @@ namespace UGF.AssetBundles.Editor
                 dependencies.Add(propertyElement.stringValue);
             }
 
-            return new AssetBundleFileInfo(name, crc, assets, dependencies, isStreamedSceneAssetBundle);
+            return new AssetBundleFileInfo(name, crc, assetNames, scenePaths, assets, dependencies, isStreamedSceneAssetBundle);
         }
     }
 }

@@ -19,21 +19,32 @@ namespace UGF.AssetBundles.Editor.Tests
         {
             m_drawer.Enable();
 
+            var assetNames = new List<string>();
+            var scenePaths = new List<string>();
             var assets = new List<AssetBundleFileInfo.AssetInfo>();
+            var dependencies = new List<string>();
+
+            for (int i = 0; i < 20; i++)
+            {
+                assetNames.Add($"Asset Name {i}");
+            }
+
+            for (int i = 0; i < 20; i++)
+            {
+                scenePaths.Add($"Scene Path {i}");
+            }
 
             for (int i = 0; i < 20; i++)
             {
                 assets.Add(new AssetBundleFileInfo.AssetInfo($"Asset {i}", typeof(Object), "Address"));
             }
 
-            var dependencies = new List<string>();
-
             for (int i = 0; i < 20; i++)
             {
                 dependencies.Add($"Dependency {i}");
             }
 
-            m_info = new AssetBundleFileInfo("Test", 15, assets, dependencies, true);
+            m_info = new AssetBundleFileInfo("Test", 15, assetNames, scenePaths, assets, dependencies, true);
             m_drawer.Set(m_info);
         }
 
