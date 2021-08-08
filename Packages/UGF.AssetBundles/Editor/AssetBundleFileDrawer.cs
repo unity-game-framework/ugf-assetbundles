@@ -31,11 +31,12 @@ namespace UGF.AssetBundles.Editor
         public bool DisplayMenuClear { get; set; } = true;
         public bool DisplayMenuDebug { get; set; } = true;
         public bool HasData { get { return m_drawerNormal.HasData || m_drawerDebug.HasData; } }
+        public AssetBundleFileInfoDrawer DrawerNormal { get { return m_drawerNormal; } }
+        public AssetBundleDrawer DrawerDebug { get { return m_drawerDebug; } }
 
         private readonly AssetBundleFileInfoDrawer m_drawerNormal = new AssetBundleFileInfoDrawer();
         private readonly AssetBundleDrawer m_drawerDebug = new AssetBundleDrawer();
         private bool m_displayDebug;
-        private bool m_foldout;
         private Styles m_styles;
 
         private class Styles
