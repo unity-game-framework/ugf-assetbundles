@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace UGF.AssetBundles.Editor.Tests
@@ -18,21 +19,19 @@ namespace UGF.AssetBundles.Editor.Tests
         {
             m_drawer.Enable();
 
-            var assets = new[]
-            {
-                new AssetBundleFileInfo.AssetInfo("Asset 0", typeof(Object), "Address"),
-                new AssetBundleFileInfo.AssetInfo("Asset 1", typeof(Object), "Address"),
-                new AssetBundleFileInfo.AssetInfo("Asset 2", typeof(Object), "Address")
-            };
+            var assets = new List<AssetBundleFileInfo.AssetInfo>();
 
-            string[] dependencies = new[]
+            for (int i = 0; i < 20; i++)
             {
-                "Test 0",
-                "Test 1",
-                "Test 2",
-                "Test 3",
-                "Test 4"
-            };
+                assets.Add(new AssetBundleFileInfo.AssetInfo($"Asset {i}", typeof(Object), "Address"));
+            }
+
+            var dependencies = new List<string>();
+
+            for (int i = 0; i < 20; i++)
+            {
+                dependencies.Add($"Dependency {i}");
+            }
 
             m_info = new AssetBundleFileInfo("Test", 15, assets, dependencies, true);
             m_drawer.Set(m_info);

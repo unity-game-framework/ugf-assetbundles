@@ -8,6 +8,7 @@ namespace UGF.AssetBundles.Editor
     public class AssetBundleFileInfoDrawer : DrawerBase
     {
         public bool HasData { get { return m_drawer.HasEditor; } }
+        public bool DisplayAsReadOnly { get; set; }
 
         private readonly EditorDrawer m_drawer = new EditorDrawer();
         private AssetBundleFileInfoContainer m_container;
@@ -64,7 +65,7 @@ namespace UGF.AssetBundles.Editor
         {
             if (HasData)
             {
-                using (new EditorGUI.DisabledScope(true))
+                using (new EditorGUI.DisabledScope(DisplayAsReadOnly))
                 {
                     m_drawer.DrawGUILayout();
                 }

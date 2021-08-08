@@ -70,10 +70,7 @@ namespace UGF.AssetBundles.Editor
         {
             if (HasData)
             {
-                using (new EditorGUI.DisabledScope(true))
-                {
-                    m_drawer.DrawGUILayout();
-                }
+                m_drawer.DrawGUILayout();
             }
             else
             {
