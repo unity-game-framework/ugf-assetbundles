@@ -2,8 +2,8 @@
   "name": "com.ugf.assetbundles",
   "displayName": "UGF.AssetBundles",
   "version": "1.0.0-preview.2",
-  "unity": "2021.1",
-  "apiCompatibility": ".NET Standard 2.0",
+  "unity": "2021.3",
+  "apiCompatibility": ".NET Standard 2.1",
   "description": "Provides utilities to work with AssetBundles.",
   "author": {
     "name": "Unity Game Framework",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "com.unity.modules.assetbundle": "1.0.0",
-    "com.ugf.editortools": "1.12.0",
-    "com.ugf.runtimetools": "2.3.0"
+    "com.ugf.editortools": "2.5.0",
+    "com.ugf.runtimetools": "2.7.0"
   }
 }
