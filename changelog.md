@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0](https://github.com/unity-game-framework/ugf-assetbundles/releases/tag/1.0.0) - 2022-05-18  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-assetbundles/milestone/4?closed=1)  
+    
+
+### Added
+
+- Add option to delete manifest files after build ([#8](https://github.com/unity-game-framework/ugf-assetbundles/issues/8))  
+    - Update dependencies: `com.ugf.editortools` to `2.5.0` and `com.ugf.runtimetools` to `2.7.0` version.
+    - Update package _Unity_ version to `2021.3`.
+    - Update package _API Compatibility_ level to `.NET Standard 2.1`.
+    - Add `AssetBundleBuildUtility.DeleteManifestFiles()` method to delete manifest files.
+
 ## [1.0.0-preview.2](https://github.com/unity-game-framework/ugf-assetbundles/releases/tag/1.0.0-preview.2) - 2021-08-08  
 
 ### Release Notes
