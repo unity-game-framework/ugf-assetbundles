@@ -2,7 +2,7 @@
   "name": "com.ugf.assetbundles",
   "displayName": "UGF.AssetBundles",
   "version": "1.0.0-preview.2",
-  "unity": "2021.1",
+  "unity": "2021.3",
   "apiCompatibility": ".NET Standard 2.0",
   "description": "Provides utilities to work with AssetBundles.",
   "author": {
