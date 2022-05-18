@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -52,6 +53,25 @@ namespace UGF.AssetBundles.Editor
             }
 
             return builds;
+        }
+
+        public static bool DeleteManifestFiles(string path)
+        {
+            if (string.IsNullOrEmpty(path)) throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+
+            string[] paths = Directory.GetFiles(path, "*.manifest", SearchOption.AllDirectories);
+
+            if (paths.Length > 0)
+            {
+                for (int i = 0; i < paths.Length; i++)
+                {
+                    File.Delete(paths[i]);
+                }
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
