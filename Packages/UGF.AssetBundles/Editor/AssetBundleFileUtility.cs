@@ -53,6 +53,7 @@ namespace UGF.AssetBundles.Editor
             SerializedProperty propertyDependencies = serializedObject.FindProperty("m_Dependencies");
 
             var addresses = new Dictionary<int, string>();
+            var assetIds = new HashSet<int>();
 
             for (int i = 0; i < propertyContainer.arraySize; i++)
             {
@@ -76,12 +77,10 @@ namespace UGF.AssetBundles.Editor
                 Object asset = propertyElement.objectReferenceValue;
                 int instanceId = propertyElement.objectReferenceInstanceIDValue;
 
-                if (asset != null)
+                if (asset != null && assetIds.Add(instanceId))
                 {
-                    string assetName = asset.name;
-                    Type assetType = asset.GetType();
                     string address = addresses.TryGetValue(instanceId, out string value) ? value : string.Empty;
-                    var assetInfo = new AssetBundleFileInfo.AssetInfo(assetName, assetType, address);
+                    var assetInfo = new AssetBundleFileInfo.AssetInfo(asset.name, asset.GetType(), address);
 
                     assets.Add(assetInfo);
                 }
