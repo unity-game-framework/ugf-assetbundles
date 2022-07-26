@@ -26,14 +26,21 @@ namespace UGF.AssetBundles.Editor
             string contentName = $"{propertyName.stringValue} ({contentType.FullName})";
             var content = new GUIContent(contentName, contentIcon);
 
-            serializedProperty.isExpanded = EditorGUI.Foldout(rectFoldout, serializedProperty.isExpanded, content, true);
-
-            if (serializedProperty.isExpanded)
+            if (!string.IsNullOrEmpty(propertyAddress.stringValue))
             {
-                using (new IndentIncrementScope(1))
+                serializedProperty.isExpanded = EditorGUI.Foldout(rectFoldout, serializedProperty.isExpanded, content, true);
+
+                if (serializedProperty.isExpanded)
                 {
-                    EditorGUI.PropertyField(rectAddress, propertyAddress);
+                    using (new IndentIncrementScope(1))
+                    {
+                        EditorGUI.PropertyField(rectAddress, propertyAddress);
+                    }
                 }
+            }
+            else
+            {
+                EditorGUI.LabelField(rectFoldout, GUIContent.none, content);
             }
         }
 

@@ -24,22 +24,22 @@ namespace UGF.AssetBundles.Editor.Tests
             var assets = new List<AssetBundleFileInfo.AssetInfo>();
             var dependencies = new List<string>();
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 200; i++)
             {
                 assetNames.Add($"Asset Name {i}");
             }
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 200; i++)
             {
                 scenePaths.Add($"Scene Path {i}");
             }
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 200; i++)
             {
                 assets.Add(new AssetBundleFileInfo.AssetInfo($"Asset {i}", typeof(Object), "Address"));
             }
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 200; i++)
             {
                 dependencies.Add($"Dependency {i}");
             }

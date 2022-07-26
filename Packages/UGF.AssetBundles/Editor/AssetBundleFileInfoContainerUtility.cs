@@ -14,7 +14,6 @@ namespace UGF.AssetBundles.Editor
             container.Name = info.Name;
             container.Crc = info.Crc;
             container.IsStreamedSceneAssetBundle = info.IsStreamedSceneAssetBundle;
-            container.AssetNames.AddRange(info.AssetNames);
             container.ScenePaths.AddRange(info.ScenePaths);
             container.Dependencies.AddRange(info.Dependencies);
 
@@ -29,6 +28,8 @@ namespace UGF.AssetBundles.Editor
                     Address = assetInfo.Address
                 });
             }
+
+            container.Assets.Sort((a, b) => string.Compare(b.Address, a.Address, StringComparison.Ordinal));
 
             return container;
         }
