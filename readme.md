@@ -4,15 +4,15 @@ UGF.AssetBundles
 
 ## Information
 
-- **Version**: `1.0.0`
+- **Version**: `1.1.0`
 - **Unity**: `2021.3`
 - **API Compatibility Level**: `.NET Standard 2.1`
 
 ### Dependencies
 
 - `com.unity.modules.assetbundle`: `1.0.0`
-- `com.ugf.editortools`: `2.5.0`
-- `com.ugf.runtimetools`: `2.7.0`
+- `com.ugf.editortools`: `2.8.4`
+- `com.ugf.runtimetools`: `2.10.0`
 
 
 ### Description
