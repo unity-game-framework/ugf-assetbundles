@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "com.unity.modules.assetbundle": "1.0.0",
-    "com.ugf.editortools": "2.5.0",
-    "com.ugf.runtimetools": "2.7.0"
+    "com.ugf.editortools": "2.8.4",
+    "com.ugf.runtimetools": "2.10.0"
   }
 }
