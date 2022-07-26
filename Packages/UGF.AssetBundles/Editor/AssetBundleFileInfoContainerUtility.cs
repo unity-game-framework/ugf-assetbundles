@@ -25,7 +25,7 @@ namespace UGF.AssetBundles.Editor
                 container.Assets.Add(new AssetBundleFileInfoContainer.AssetInfo
                 {
                     Name = assetInfo.Name,
-                    Type = assetInfo.Type.FullName,
+                    Type = assetInfo.Type.AssemblyQualifiedName,
                     Address = assetInfo.Address
                 });
             }
